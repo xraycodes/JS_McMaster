@@ -15,7 +15,7 @@
 let headerData = ['Name/Subject', 'Math', 'Science', 'English', 'Average Grade'];
 let studentGrades = [
   ['John', 75, 80, 91,],
-  ['Mostafa', 69, 69, 94,],
+  ['Mostafa', 69, 77, 94,],
   ['Amy', 77, 84, 88,],
   ['Chris', 72, 81, 96,],
   ['Robb', 90, 80, 88,], 
@@ -62,6 +62,7 @@ console.log(studentGrades)
 // get access to the table element in the page
 const table = document.querySelector("#grades");
 
+// let headerData = ['Name/Subject', 'Math', 'Science', 'English', 'Average Grade'];
 // utility function to populate the table header
 function generateTableHead(table, data) {
     let thead = table.createTHead();
@@ -95,7 +96,7 @@ function generateTable(table, data) {
 for (info of studentGrades){
   getAverageGrade(info)
 }
-getAverageGrade()
+
 generateTableHead(table, headerData);
 generateTable(table, studentGrades);
   
