@@ -12,7 +12,10 @@
  * ------------------------------------------------------------------------
  */
 
+// Added to headerData array the headers of table
 let headerData = ['Name/Subject', 'Math', 'Science', 'English', 'Average Grade'];
+
+// Added to studentGrades array as an array containing the name of the student and their grades 
 let studentGrades = [
   ['John', 75, 80, 91,],
   ['Mostafa', 69, 77, 94,],
@@ -21,44 +24,24 @@ let studentGrades = [
   ['Robb', 90, 80, 88,], 
 ];
 
-/**
- * Write code to populate the "headerData" string array using data from the aforementioned template
- * 
- * Hint: use the "push" method to add data to the array (or re-define the array and initialize it with the data)
- */
-
-/**
- * Write code to initialize the array "studentGrades"
- *  with the students/grades information from the previous template:
- *
- * Hint 1: use an array of arrays
- * Hint 2: each student and his/her grades (reflecting a table row) will be an array of different data types
- *         since it will include the student name followed by his/her grades
- */
-
-/**
- * Write code to calculate the average grade for each student
- *  and update the "studentGrades" array
- * 
- * Hint 1: use loop syntax on each student's grades 
- * Hint 2: write a new function calculate the grades, and do not forget to call your function after defining it
- */
-
+/* Function to add the student name, their subject and average grades under the right header
+param = student_info : Passing in studentGrades array
+*/
 function getAverageGrade(student_info) {
-    let number = 0
-    for (info of student_info){
-      if(isNaN(info)){
-        student_name = info
-        continue
+    let totalGrade = 0;
+    for (info of student_info) { 
+      if(isNaN(info)){  // Omits the first index of array which contains students name
+        continue 
       }
       else {
-        number += info
+        totalGrade += info;
       }
-    }
-    average = (number/(student_info.length - 1))
-    student_info.push(average.toFixed())
+    };
+    average = (totalGrade/(student_info.length - 1))  // Subtract 1 to omit student name in length of array
+    student_info.push(average.toFixed()) // toFixed method rounds to nearest whole number,
+                                        // Adds average to current array of that student
 }
-console.log(studentGrades)
+
 // get access to the table element in the page
 const table = document.querySelector("#grades");
 
@@ -88,11 +71,7 @@ function generateTable(table, data) {
 }
 
 // build the table
-
-// for(let i = 0; i < studentGrades.length; i++) {
-//     getAverageGrade(studentGrades[i])
-// }
-
+//Looping over studentGrades array and passing as argument to getAverageGrade function
 for (info of studentGrades){
   getAverageGrade(info)
 }
