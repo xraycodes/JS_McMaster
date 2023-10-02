@@ -1,14 +1,14 @@
-let promise = new Promise((resolve, reject) => { 
-    // Code to perform the promised task
-    let task_performed = true;
-    if(task_performed) { 
-      resolve('The promised task was performed successfully.'); 
-    } else { 
-      reject('The promised task was not performed.'); 
-    } 
-  });  
-  promise.then((fromRes) => console.log(fromRes)). 
-    catch((fromRej) => console.log(fromRej));
+// let promise = new Promise((resolve, reject) => { 
+//     // Code to perform the promised task
+//     let task_performed = true;
+//     if(task_performed) { 
+//       resolve('The promised task was performed successfully.'); 
+//     } else { 
+//       reject('The promised task was not performed.'); 
+//     } 
+//   });  
+//   promise.then((fromRes) => console.log(fromRes)). 
+//     catch((fromRej) => console.log(fromRej));
 
   /*
 A promise is created using a constructor that takes a call back function with two arguments (line 1).
@@ -21,3 +21,14 @@ If the task is unsuccessful, then the promise is rejected. In this example, an o
 
 The then() method is called when the promise is resolved, ​and the catch() method is called if the promise is rejected or if there was an error during the code execution (lines 10-11).
 */
+
+let p = new Promise((resolve, reject) => {
+    let a = 1 + 1;
+    if (a == 2){
+      resolve("The promise was success")
+    } else {
+      reject("The promise was failed")
+    }
+});
+p.then((message) => console.log(message)).
+  catch((message) => console.log(message));
