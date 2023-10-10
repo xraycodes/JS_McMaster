@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>My test page</title>
+  </head>
+  <body>
+    <form action="/my-handling-form-page" method="post">
+        <ul>
+            <li>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="user_name" />
+            </li>
+            <li>
+            <label for="mail">Email:</label>
+            <input type="email" id="mail" name="user_email" />
+            </li>
+            <li>
+            <label for="msg">Message:</label>
+            <textarea id="msg" name="user_message"></textarea>
+            </li>
+            <li class="button">
+                <button type="submit">Send your message</button>
+            </li>
+        </ul>
+        </form>
+ 
+    <p>This is my page</p>
+  </body>
+</html>
+
+<!-- 
+-Associating form control with label: the for attribute for label is the value of id of the form control with which it is associated. 
+-On input element, most important is type attribute. It defines the way input element appears and behaves.
+-input vs textarea, text area needs a closing tag(not a void element), if default value wanted for input, you can use value attribute.. Value =’blah’, but for default text area value, you put it in between the opening and closing tag.
+-Button element: type attribute: submit, reset, button.. Submit sends to forms data to web page defined by action attribute in form element. Reset resets all widgets to default value(bad practice), button does nothing(good for building custom buttons using JS)
+ -->

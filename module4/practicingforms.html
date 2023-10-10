@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" enctype="multipart/form-data">
+        <div>
+            <label for="user">User</label>
+            <input type="text" id="user" placeholder="ClaireWu" required>
+        </div>
+        
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+
+        <div>
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" min="1" max="200">
+        </div>
+        <div>
+            <label for="date">Birth Date</label>
+            <input type="date" id="date" name="date" min="2019-06-10">
+        </div>
+        <div>
+            Favourite food
+            <div>
+                <label for="banana">Banana</label>
+                <input type="checkbox" name="banana" id="banana">
+            </div>
+            <div>
+                <label for="apple">Apple</label>
+                <input type="checkbox" name="apple" id="Apple">
+            </div>
+        </div>
+        <div>
+            Gender
+            <div>
+                <label for="male">Male</label>
+                <input type="radio" name="gender" id="male" value="Male">
+            </div>
+            <div>
+                <label for="female">Female</label>
+                <input type="radio" name="gender" id="female" value="Female">
+            </div>
+        </div>
+        <div>
+            <label for="eyeColor">Eye color</label>
+            <select name="eyeColor" id="eyeColor" multiple>
+                <option value="Green">Green</option>
+                <option label="Red" value="Red"></option>
+            </select>
+        </div>
+        <div>
+            <label for="bio">Bio</label>
+            <textarea name="bio" id="bio" cols="30" rows="10">My name is Billy</textarea>
+        </div>
+        <input type="hidden" value="pie">
+        <div>
+            <label for="file">File</label>
+            <input type="file" id="file" name="file">
+        </div>
+        <div>
+            <label for="color">Color</label>
+            <input type="color" name="color" id="color">
+        </div>
+
+        <button type="submit">click to submit</button>
+    </form>
+    
+</body>
+</html>
