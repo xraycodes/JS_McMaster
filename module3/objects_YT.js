@@ -27,7 +27,19 @@ const circles = createCircle(1);
 //constructor function
 function Circle(radius) {
     this.radius = radius;
+    //abstraction want to hide the 2 properties below
+    let defaultLocation = { x: 0, y: 0};
+  
+
+    let computeOptimumLocation = function(factor) {
+
+        //.
+    }
     this.draw = function() {
+        computeOptimumLocation(0.1);
+        //defaultLocation ... using concept of closure to access the variables
+        //this.radius
+
         console.log('draw');
     }
 }
