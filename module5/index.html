@@ -16,13 +16,13 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li v-for="(link, index) in links"class="nav-item" :key="index">
+              <li v-for="(page, index) in pages" class="nav-item" :key="index">
                 <a 
                 class="nav-link active" 
                 aria-current="page" 
-                v-bind:href="link.url"
-                :title="`This goes to ${link.text} page`"
-                >{{link.text}}</a>
+                v-bind:href="page.link.url"
+                :title="`This goes to ${page.link.text} page`"
+                >{{page.link.text}}</a>
               </li>
             </ul>
           </div>
@@ -41,30 +41,29 @@
 
 
     <script>
-
-        const app = Vue.createApp({
-            data() {
-                return {
-                    links: [
-                        {text: 'Home', url: 'index.html'},
-                        {text: 'About', url: 'about.html'},
-                        {text: 'Contact', url: 'contact.html'},
-                    ]
-                }
-            }
-        })
-        
-        app.mount('nav')
-
         Vue.createApp({
             data() {
                 return {
-                    pageTitle: 'Hello, Vue',
-                    content: 'Welcome to wonderful word of vue',
-                    v_html: 'This is using v-html',
+                    pages: [
+                        {
+                            link: {text: 'Home', url: 'index.html'},
+                            pageTitle: 'Hello, Vue',
+                            content: 'Welcome to wonderful word of vue',
+                        },
+                        {
+                            link: {text: 'About', url: 'about.html'},
+                            pageTitle: 'Hello, Vue',
+                            content: 'Welcome to wonderful word of vue',
+                        },
+                        {
+                            link: {text: 'Contact', url: 'contact.html'},
+                            pageTitle: 'Hello, Vue',
+                            content: 'Welcome to wonderful word of vue',
+                        }
+                    ]
                 }
             }
-        }).mount('#content');
+        }).mount('body');
 
 
         Vue.createApp({
