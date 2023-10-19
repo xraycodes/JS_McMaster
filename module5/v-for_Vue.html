@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <!-- loopin over array of strings -->
+    <h1 v-for="(name, index) in names">Hello {{index}} {{ name }}</h1>
+    <!-- looping over array of objects -->
+    <h2 v-for="name in fullNames"> {{ name.first }} {{name.last}}</h2>  
+    <!-- looping over array within an array -->
+    <div v-for="actor in actors">
+        <h2>{{ actor.name}} {{actor.movies}}</h2>
+        <h3 v-for="movie in actor.movies">{{movie}}</h3>
+    </div>
+    <!-- Looping over objects, must be in this order for the value, key, index to show -->
+    <h2 v-for="(value,key,index) in myInfo">{{value}} {{key}} {{index}}</h2>
+    
+
+<script>
+    Vue.createApp({
+        data(){
+            return {
+                names: ['Bruce', 'Clark', 'Diana'],
+                fullNames: [
+                    {first: 'Bruce', last:'Wayne'},
+                    {first: 'Clark', last:'Kent'},
+                    {first: 'Princess', last:'Diana'},
+                ],
+                actors: [
+                    {
+                        name: 'Christian Bale',
+                        movies: ['Batman', 'The Prestige']
+                    },
+                    {
+                        name: 'DiCaprio',
+                        movies: ['Titanic', 'Inception'],
+                    }
+                ],
+                myInfo: {
+                    name: 'Brian',
+                    channel: 'Coding',
+                    course: 'Vue3',
+                }
+            }
+        },
+    }).mount('body')
+
+</script>
+    
+</body>
+</html>
