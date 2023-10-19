@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <h1>Hello {{name}}</h1>
+    <p>{{number}}</p>
+    <button v-on:click ='number += 1'>Increment</button>
+    <button v-on:click = 'increment'>Increment 5</button>
+
+<script>
+    Vue.createApp({
+        data(){
+            return {
+                name : 'Brian',
+                number: 0,
+            }
+        },
+        // using methods to declutter inline click event
+        methods: {     
+            increment(){
+                this.number += 5
+            }
+        },
+    }).mount('body')
+
+</script>
+    
+</body>
+</html>
