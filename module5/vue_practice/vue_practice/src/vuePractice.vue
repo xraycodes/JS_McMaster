@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { duma } from './main'
 
 const message = 'hello world'
@@ -10,12 +10,20 @@ const objectOfAttrs = {
   class: 'wrapper'
 }
 
+const wordCount = ref('')
+const counter = computed(() => {
+  return wordCount.value.length
+})
+ 
+
 const state = reactive({count: 0})
 
 const ob = ref(0)
 </script>
 
 <template>
+<input type="text" name="" id="" v-model="wordCount">
+<p> {{ counter }}/200</p>
 <button @click="duma.age++">{{duma.name}}</button>
 <h2>{{ duma.age }}</h2>
 <h1>{{ message }}</h1>
