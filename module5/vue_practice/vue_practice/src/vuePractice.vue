@@ -1,5 +1,5 @@
 <script>
-import { ref,reactive, computed } from 'vue';
+import { ref,reactive, computed, watch, watchEffect } from 'vue';
 
 export default {
     setup() {
@@ -9,6 +9,14 @@ export default {
         const search = ref('')
 
         const names = ref(['bob', 'billy', 'joel','david','peter','kim','lucy'])
+
+        watch(search, () =>{
+            console.log('watch function ran')
+        })
+        
+        watchEffect(()=>{
+            console.log('watcheffect ran', search.value)
+        })
 
         const update = reactive({name: 'Brian', age: 29})
 
