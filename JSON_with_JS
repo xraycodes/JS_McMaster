@@ -1,0 +1,14 @@
+const obj = [{
+    question: 1,
+    statement: "What is 1 + 1",
+    answers: {a: 2, b:3, c:4, d:1},
+    value: 1
+},
+    {
+        question: 2,
+        statement: "What is 2+3",
+        answers: {a: 1, b:5, c:3, d:2},
+        value: 1}
+]
+
+console.log(obj[0].answers.a)
