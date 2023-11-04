@@ -1,7 +1,13 @@
 <script setup>
-import {ref} from 'vue'
+import {ref,reactive} from 'vue'
 
+const num =3
 
+allQuestions = reactive({
+  "number" : 1,
+  "choices": {"a": 2, "b":3, "c": 5, "d":7},
+  "correctAnswer": "a",
+})
 </script>
 
 <template>
@@ -9,6 +15,12 @@ import {ref} from 'vue'
 <form action="">
 <label for="q1">Question 1</label>
 <p>What is 1 + 1</p>
+
+<div v-for="i in 3">
+<input type="radio" id="a" name="q1">
+<label for="a"> 5 </label><br>
+</div>
+
 <input type="radio" id="a" name="q1">
 <label for="a"> 5 </label><br>
 <input type="radio" id="b" name="q1">
