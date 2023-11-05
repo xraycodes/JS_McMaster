@@ -1,39 +1,17 @@
 <script setup>
-import {ref,reactive} from 'vue'
+import {ref,reactive, computed} from 'vue'
 
-const num =3
+const num = ref(6)
 
-allQuestions = reactive({
-  "number" : 1,
-  "choices": {"a": 2, "b":3, "c": 5, "d":7},
-  "correctAnswer": "a",
-})
+const tests = computed(() => {
+  return num.value > 5 ? 'yes': 'no'
+  })
 </script>
 
 <template>
 <h1>Hello Vue 3</h1>
-<form action="">
-<label for="q1">Question 1</label>
-<p>What is 1 + 1</p>
 
-<div v-for="i in 3">
-<input type="radio" id="a" name="q1">
-<label for="a"> 5 </label><br>
-</div>
-
-<input type="radio" id="a" name="q1">
-<label for="a"> 5 </label><br>
-<input type="radio" id="b" name="q1">
-<label for="b"> 2 </label>
-<input type="radio" id="a" name="q1">
-<label for="a"> 5 </label><br>
-<input type="radio" id="a" name="q1">
-<label for="a"> 5 </label><br>
-
-
-
-
-</form>
+<h2> {{ tests }} </h2>
   
  
 </template>
