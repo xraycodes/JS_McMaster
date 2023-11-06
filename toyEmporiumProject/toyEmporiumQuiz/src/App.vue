@@ -6,17 +6,26 @@ import QuestionTemplate from './components/questionTemplate.vue'
 
 const test = reactive(JSONfile)
 
-const paragraph = ref([])
-const addParagraph = () =>{
-  paragraph.value.push(paragraph.value.length+1)
+const questionsLength = ref(JSONfile.length)
+const addTemplate = () => {
+  questionsLength.value++
+}
+const removeTemplate = () => {
+  questionsLength.value--
 }
 
-const removeParagraph = () => {
-  paragraph.value.pop()
-}
-console.log(paragraph.value.length)
+
+// const paragraph = ref([])
+// const addParagraph = () =>{
+//   paragraph.value.push(paragraph.value.length+1)
+// }
+
+// const removeParagraph = () => {
+//   paragraph.value.pop()
+// }
+
 const flag = true
-
+const template = QuestionTemplate
 
 </script>
 
@@ -32,17 +41,18 @@ const flag = true
       </div>
    </div>
 
+   <br>
+   <div>
+    <button>Click to edit</button>
+   </div>
+<!-- 
+<QuestionTemplate v-for="i in questionsLength"/>
+
   <div>
-    <button @click="addParagraph">Click to add template</button>
-    <button @click="removeParagraph">Click to remove template</button>
-    <h1>{{ paragraph }}</h1>
-  
-    
-   
-   <QuestionTemplate />
-
-
-  </div>
+    <button @click="addTemplate">Click to add template</button>
+    <button @click="removeTemplate">Click to remove template</button>
+    <h1>{{ questionsLength }}</h1>
+  </div> -->
 
 
 </template>
