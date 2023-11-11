@@ -1,30 +1,15 @@
 <script setup>
-import {ref,reactive, computed, watch} from 'vue'
+import { ref } from 'vue'
 
-const num = ref(6)
-const word = ''
+const awesome = ref(true)
 
-const tests = computed(() => {
-  return num.value > 5 ? 'yes': 'no'
-  })
-
-watch(num, newNum) => {
-  if(newNum > 7){
-    word.value = 'seven'
-  }
+function toggle() {
+  awesome.value = !awesome.value
 }
 </script>
 
 <template>
-<h1>Hello Vue 3</h1>
-<button @click="num++">click to num</button>
-<h2> {{num}} </h2>
-  
- 
+  <button @click="toggle">toggle</button>
+  <h1 v-if="awesome">Vue is awesome!</h1>
+  <h1 v-else>Oh no 😢</h1>
 </template>
-
-<style scoped>
-button {
-  font-weight: bold;
-}
-</style>
