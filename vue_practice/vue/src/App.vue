@@ -1,12 +1,20 @@
 <script>
-import {ref, reactive} from 'vue'
+import {ref, reactive, computed} from 'vue'
 
 export default {
   setup() {
-    const name = ref(0)
+    const id = ref(0)
+    const names = reactive({
+      name: "Brian",
+      age: 29
+    })
+
+    const isEven = computed(() => names.age / 2)
 
     return {
-      name
+      id,
+      names,
+      isEven
     }
   }
 }
@@ -16,9 +24,14 @@ export default {
 
 
 <template>
-<button @click="name++">Click to add</button>
-<h1> {{ name }}</h1>
+<button @click="id++">Click to add</button>
+<h1> {{ id }}</h1>
+<h1>{{ isEven }}</h1>
+<p>{{ names.name }}</p>
 </template>
+
+
+
 
 <style scoped>
 
