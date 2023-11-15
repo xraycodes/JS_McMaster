@@ -1,5 +1,5 @@
 <script>
-import {ref, reactive, computed} from 'vue'
+import {ref, reactive, computed, watch} from 'vue'
 
 export default {
   setup() {
@@ -8,13 +8,22 @@ export default {
       name: "Brian",
       age: 29
     })
+    
+    const count = ref(0)
+
+    watch(count, (newValue, oldValue) => {
+      if (newValue == 10) {
+        alert("dingding")
+      }
+    })
 
     const isEven = computed(() => names.age / 2)
 
     return {
       id,
       names,
-      isEven
+      isEven,
+      count
     }
   }
 }
@@ -24,7 +33,7 @@ export default {
 
 
 <template>
-<button @click="id++">Click to add</button>
+<button @click="count++">Click to add</button>
 <h1> {{ id }}</h1>
 <h1>{{ isEven }}</h1>
 <p>{{ names.name }}</p>
