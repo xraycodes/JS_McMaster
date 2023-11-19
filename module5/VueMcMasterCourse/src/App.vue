@@ -1,80 +1,144 @@
-<script>
-import {ref} from 'vue';
+<script setup>
+import {ref, computed,reactive,watch} from 'vue';
+import toDoItems from './toDoItems.vue';
 
-export default{
-    setup() {
-        const toDoList = ref([])
-        const selectedItems= ref([])
-        const textRequest = ref(false);
-        const empty = ref(false)
-        const inputValue = ref('')
-       
-
-        const addToDoList = () => {
-            if (inputValue.value.trim() === ''){
-                empty.value = true;
-                return
-            }
-            toDoList.value.push(inputValue.value)
-                inputValue.value ='';
-                empty.value = false
-            }        
-        
-        const deleteListItems = () => {
-            // Returns selectedItems.value(index) in descending order 
-            selectedItems.value.sort(function(a,b){return b-a})  
-            // Iterates over the selectedItems index, and removes the element in the toDoList array 
-            // using the index of the selectedItems
-            for(let i of selectedItems.value){
-                toDoList.value.splice(i,1)
-            }
-            // Resets the variable as empty array since the requested element is deleted
-            selectedItems.value = [];
-        }
+const toDoList = ref([])
+const selectedItems= ref([])
+const textRequest = ref(false);
+const empty = ref(false)
+const inputValue = ref('')
+const subItem = ref('')
+const subItemArray = ref([])
+const obj = reactive({})
+const currentSelection = ref('')
+const selectedSubItems = ref([])
     
-
-        return {
-            addToDoList,
-            deleteListItems,
-            textRequest,
-            toDoList,
-            inputValue,
-            selectedItems,
-            empty
-        }
+// The following parts are for the toDo List section
+const addToDoList = () => {
+    if (inputValue.value.trim() === ''){
+        empty.value = true;
+        return
+    }
+    toDoList.value.push(inputValue.value)
+        inputValue.value ='';
+        empty.value = false
+    }        
+    
+    const deleteListItems = () => {
+    // Returns selectedItems.value(index) in descending order 
+    selectedItems.value.sort((a, b) => b - a);
+       // Iterates over the selectedItems index, and removes the element in the toDoList array 
+    // using the index of the selectedItems
+    for (let i of selectedItems.value) {
+        toDoList.value.splice(i, 1);
+        delete obj[i];
     }
 
+    // Adjust the remaining indices to maintain the sequence
+    const maxValue = Math.max(toDoList.value); // Find the maximum value in the list
+    console.log(maxValue)
+    // const newList = toDoList.value.map((item) => item + maxValue);
+    // toDoList.value = newList;
+
+    // Resets the variable as an empty array since the requested elements are deleted
+    selectedItems.value = [];
+};
+
+    
+    // Resets the variable as an empty array since the requested elements are deleted
+    selectedItems.value = [];
+
+
+// The following parts are for the toDo Items section
+const addItemToSubList = () => {
+    if (selectedItems.value.length > 0){
+        subItemArray.value.push(subItem.value)  
+        const hold = subItemArray.value
+        obj[selectedItems.value.toString()] = hold
+        subItem.value = ''
+    }
 }
+
+const deleteSubListItems = () => {
+    const selectedItemKey = selectedItems.value.toString();
+    if (obj[selectedItemKey]) {
+        // Get the array associated with the selected item
+        const selectedArray = obj[selectedItemKey];
+        // Sort the selectedSubItems to delete them in descending order
+        selectedSubItems.value.sort((a, b) => b - a);
+        for (let i of selectedSubItems.value) {
+        if (selectedArray[i]) {
+            // Remove the item at index i from the selected array
+            selectedArray.splice(i, 1);
+        }
+        }
+        // Clear the selectedSubItems list after deletion
+        selectedSubItems.value = [];
+    }
+    };
+
+// Extra functionality such as computed and watch
+    const elementsToObject = computed(() => {
+        selectedItems.value.forEach((item, index) => {
+            obj[index] = []
+        })
+        return obj;
+    })
+
+watch(() => selectedItems.value, (newValue, oldValue) => {
+  currentSelection.value = newValue;
+  // Reset subItemArray when selectedItems change
+  subItemArray.value = [];
+});  
 </script>
 
 <template>
-    <div>
-        <div v-for="(list,index) in toDoList">
-            <!-- Sets the v-model value of the index into selectedItems reactive variable -->
-            <input type="checkbox" id="list" v-model="selectedItems" :value="index"> 
-            &nbsp;
-            <label for="list">  {{ list }}</label>
-        </div>
+<h1 id="title">ToDo Lists</h1>
+<div>
+    <div v-for="(list,index) in toDoList">
+        <!-- Sets the v-model value of the index into selectedItems reactive variable -->
+        <input type="checkbox" id="list" v-model="selectedItems" :value="index"> 
+        &nbsp;
+        <label for="list">  {{ list }}</label>
     </div>
+</div>
 
-    <input v-if="textRequest" type="textbox" placeholder="toDo List" v-model="inputValue" @keyup.enter="addToDoList">
-    <p id="message" v-if="textRequest">Press enter to add to list</p>
-    <p id="warning" v-if="empty">Can't be empty</p>
+<input type="textbox" placeholder="toDo List" v-model="inputValue" @keyup.enter="addToDoList">
+<br>
+<p id="message" v-if="textRequest">Press enter to add to list</p>
+<p id="warning" v-if="empty">Can't be empty</p>
 
-    <div>
-    <button id="newButton" @click="textRequest = !textRequest">New</button>
-    &nbsp;
-    <button id="deleteButton" @click="deleteListItems">Delete</button>
-    <br>
+<div>
+<button id="newButton" @click="textRequest = !textRequest">New</button>
+&nbsp;
+<button id="deleteButton" @click="deleteListItems">Delete</button>
+<br>
+</div>
+
+<br>
+        
+<h1 id="title">ToDo Items</h1>
+
+<div>
+    <div v-for="(item,index) in obj[selectedItems]">
+    <!-- Sets the v-model value of the index into selectedItems reactive variable -->
+        <input type="checkbox" id="sublist" v-model="selectedSubItems" :value="index"> 
+        &nbsp;
+        <label for="sublist">  {{ item }}</label>
     </div>
+</div>
+<input type="textbox" placeholder="toDo Items" v-model="subItem" @keyup.enter="addItemToSubList">
+<br>
+
+<toDoItems @close="deleteSubListItems"/>
+<h1>{{ obj }}</h1>
+{{ toDoList }}
 </template>
-
 
 <style scoped>
 #message {
     color: rgb(10, 139, 245);
 }
-
 #deleteButton {
     outline: 0;
                     display: inline-block;
@@ -90,7 +154,6 @@ export default{
                     color: #fd290d;
                     border-color: #0d6efd;;
 }
-
 #newButton{
     cursor: pointer;
                     outline: 0;
@@ -108,8 +171,7 @@ export default{
                     border-color: #0d6efd;
                                     
 }
-
 #warning {
-    color: red;
-}
+    color: red;}
+
 </style>
