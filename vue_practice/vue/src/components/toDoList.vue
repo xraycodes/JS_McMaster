@@ -1,15 +1,39 @@
 <script setup>
-import {ref} from 'vue'
+import toDoItems from './toDoItems.vue'
+import {ref, watch} from 'vue'
+
+
+const counter = ref(0)
+watch(counter,(newValue, oldValue) => {
+        if (newValue == 5){
+            console.log("Reached maximum of 5")
+            console.log(oldValue)
+        }
+    }
+)
 
 const InputValue = ref('')
 
 const ToDoListArray = ref([])
 
-const AddInputToList = () => {
+const toDoListSelection = ref([])
+
+const addInputToList = () => {
     if(InputValue.value){
         ToDoListArray.value.push(InputValue.value)
+        counter.value++
         InputValue.value = ''
     }
+}
+
+const deleteToDoList = () => {
+    for (let selection of toDoListSelection.value){
+        console.log(selection)
+        const index = ToDoListArray.value.indexOf(selection)
+        ToDoListArray.value.splice(index,1)
+    }
+    toDoListSelection.value = []
+
 }
 
 </script>
@@ -18,12 +42,12 @@ const AddInputToList = () => {
     <div>
         <div class="container">
             <h1>ToDo Lists: </h1>
-            <button id="newButton" @click="AddInputToList">New</button>
-            <button id="deleteButton">Delete</button>
+            <button id="newButton" @click="addInputToList">New</button>
+            <button id="deleteButton" @click="deleteToDoList">Delete</button>
         </div>
 
         <div v-for="(item,index) in ToDoListArray">
-            <input type="checkbox" :value="item" :id="index">
+            <input type="checkbox" :value="`${item + index}`" :id="index" v-model="toDoListSelection">
             <label :for="index">{{ item }}</label>
 
         </div>
@@ -34,8 +58,12 @@ const AddInputToList = () => {
         </div>
     </div>
 
+    <toDoItems :toDoListSelection="toDoListSelection"/>
+
+    <!-- <h1>{{ counter }}</h1> -->
     <!-- <h1>{{ InputValue }}</h1>
     <h1>{{ ToDoListArray }}</h1> -->
+    <!-- <h1>{{ toDoListSelection }}</h1> -->
 
 </template>
 
