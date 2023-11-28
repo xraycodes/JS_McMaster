@@ -1,11 +1,29 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, reactive, watch} from 'vue'
 
 
-defineProps(['toDoListSelection'])
+
+
+const props = defineProps(['toDoListSelection'])
+
 
 const InputValue = ref('')
 const ToDoItemArray = ref([])
+const toDoItemObject = reactive({})
+
+const AddInputToList = () => {
+    ToDoItemArray.value.push(InputValue.value)
+    toDoItemObject[props.toDoListSelection] =ToDoItemArray.value
+    InputValue.value = ''
+}
+
+watch(() => props.toDoListSelection,(newValue,oldValue) => {
+    if (newValue !== oldValue) {
+        ToDoItemArray.value = []
+        toDoItemObject[newValue] = ''
+    }
+})
+
 
 </script>
 
@@ -17,10 +35,10 @@ const ToDoItemArray = ref([])
             <button id="deleteButton">Delete</button>
         </div>
 
-        <!-- <div v-for="(item,index) in ToDoItemArray">
-            <input type="checkbox" :value="item" :id="index" v-model="toDoListSelection">
-            <label :for="index">{{ item }}</label>
-        </div> -->
+        <div v-for="(key,value) in toDoItemObject[props.toDoListSelection]">
+            <input type="checkbox" :value="value" :id="key">
+            <label :for="index">{{ key }}</label>
+        </div>
 
 
 
@@ -29,7 +47,9 @@ const ToDoItemArray = ref([])
             <label for="input1"> Click New to add to ToDo Item</label>
         </div>
 
-        <h1>{{ toDoListSelection }}</h1>
+        <!-- <h1>{{ props.toDoListSelection }}</h1> -->
+        <!-- <h1>{{ toDoListSelection }}</h1> -->
+        <h1>{{ toDoItemObject }}</h1>
     </div>
 
 
